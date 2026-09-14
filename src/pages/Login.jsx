@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
+import { API_URL } from '../utils/api';
 import { Mail, Lock, Github, Chrome, BookOpen, Award, TrendingUp, Target } from 'lucide-react';
 
 const Login = () => {
@@ -43,7 +44,7 @@ const Login = () => {
   const handleSocialLogin = (provider) => {
     if (provider === 'google') {
       // Redirect to backend Google OAuth endpoint
-      window.location.href = 'http://localhost:5000/api/auth/google';
+      window.location.href = `${API_URL}/auth/google`;
     } else {
       setError('GitHub login is not configured. Use email and password instead.');
     }

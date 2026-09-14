@@ -10,10 +10,10 @@ import courseRoutes from './routes/courses.js';
 import taskRoutes from './routes/tasks.js';
 import analyticsRoutes from './routes/analytics.js';
 
-dotenv.config();
+dotenv.config({ path: new URL('./.env', import.meta.url) });
 
 if (!process.env.MONGODB_URI || !process.env.JWT_SECRET) {
-  throw new Error('MONGODB_URI and JWT_SECRET must be configured in server/.env');
+  throw new Error('MONGODB_URI and JWT_SECRET must be configured in the environment');
 }
 
 const app = express();
@@ -33,14 +33,15 @@ app.use(cors({
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
-    // Check if origin is localhost
-    if (origin.match(/^http:\/\/localhost:\d+$/)) {
+    // Allow local development servers on either loopback hostname.
+    if (origin.match(/^https?:\/\/(localhost|127\.0\.0\.1):\d+$/)) {
       return callback(null, true);
     }
     
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
+      console.warn(`Blocked CORS origin: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -91,8 +92,18 @@ const PORT = process.env.PORT || 5000;
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('✓ Connected to MongoDB');
-    app.listen(PORT, () => {
+    const server = app.listen(PORT, () => {
       console.log(`✓ Server running on port ${PORT}`);
+    });
+
+    server.on('error', (error) => {
+      if (error.code === 'EADDRINUSE') {
+        console.log(`Server is already running on port ${PORT}. Reuse the existing process.`);
+        process.exit(0);
+      }
+
+      console.error('Server startup error:', error);
+      process.exit(1);
     });
   })
   .catch((error) => {

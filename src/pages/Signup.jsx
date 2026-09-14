@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
+import { API_URL } from '../utils/api';
 import { Mail, Lock, User, Github, Chrome, BookOpen, Users, Zap, Sparkles, Rocket, Clock, Award } from 'lucide-react';
 
 const Signup = () => {
@@ -55,7 +56,7 @@ const Signup = () => {
   const handleSocialLogin = (provider) => {
     if (provider === 'google') {
       // Redirect to backend Google OAuth endpoint
-      window.location.href = 'http://localhost:5000/api/auth/google';
+      window.location.href = `${API_URL}/auth/google`;
     } else {
       console.log(`Signing up with ${provider}`);
     }
