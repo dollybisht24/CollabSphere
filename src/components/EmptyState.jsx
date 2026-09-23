@@ -15,23 +15,23 @@ const emptyStates = {
   tasks: {
     icon: ListChecks,
     title: 'No tasks yet',
-    description: 'Create your first task to get started with your learning journey',
-    color: 'text-blue-500',
-    bgColor: 'bg-blue-50'
+    description: 'Create your first task to start organizing the work',
+    color: 'text-black',
+    bgColor: 'bg-neutral-50'
   },
   courses: {
     icon: BookOpen,
     title: 'No courses found',
     description: 'Start enrolling in courses to track your progress',
-    color: 'text-purple-500',
-    bgColor: 'bg-purple-50'
+    color: 'text-black',
+    bgColor: 'bg-neutral-50'
   },
   calendar: {
     icon: CalendarX,
     title: 'No events scheduled',
     description: 'Add events to your calendar to stay organized',
-    color: 'text-green-500',
-    bgColor: 'bg-green-50'
+    color: 'text-black',
+    bgColor: 'bg-neutral-50'
   },
   search: {
     icon: Search,
@@ -44,22 +44,22 @@ const emptyStates = {
     icon: TrendingUp,
     title: 'No data available',
     description: 'Start learning to see your analytics',
-    color: 'text-yellow-500',
-    bgColor: 'bg-yellow-50'
+    color: 'text-black',
+    bgColor: 'bg-neutral-50'
   },
   achievements: {
     icon: Award,
     title: 'No achievements yet',
     description: 'Complete tasks and courses to earn badges',
-    color: 'text-orange-500',
-    bgColor: 'bg-orange-50'
+    color: 'text-black',
+    bgColor: 'bg-neutral-50'
   },
   goals: {
     icon: Target,
     title: 'No goals set',
     description: 'Set learning goals to track your progress',
-    color: 'text-pink-500',
-    bgColor: 'bg-pink-50'
+    color: 'text-black',
+    bgColor: 'bg-neutral-50'
   },
   generic: {
     icon: Inbox,
@@ -93,7 +93,7 @@ const EmptyState = ({ type = 'generic', actionLabel, onAction, className = '' })
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
-        className="text-xl font-bold text-gray-900 mb-2"
+        className="text-xl font-bold text-black mb-2"
       >
         {state.title}
       </motion.h3>
@@ -102,7 +102,7 @@ const EmptyState = ({ type = 'generic', actionLabel, onAction, className = '' })
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
-        className="text-gray-600 text-center max-w-md mb-6"
+        className="text-black/60 text-center max-w-md mb-6"
       >
         {state.description}
       </motion.p>
